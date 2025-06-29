@@ -8,8 +8,18 @@ export default defineOAuthTwitchEventHandler({
     });
 
     if (!isAllowedUser) {
-      console.log('User not allowed to log in:', user);
-      throw new Error('You are not allowed to log in');
+      console.log('User not found, adding to database:', user);
+      
+      // Automatisch den Benutzer zur Datenbank hinzufügen
+      await useDrizzle().insert(tables.users).values({
+        twitchId: user.id,
+        displayName: user.display_name,
+        avatar: user.profile_image_url,
+        email: user.email,
+        godMode: false, // Standardmäßig kein Admin
+      });
+      
+      console.log('User added to database successfully');
     }
 
     await setUserSession(event, {

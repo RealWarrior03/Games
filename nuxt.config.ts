@@ -27,16 +27,16 @@ export default defineNuxtConfig({
   runtimeConfig: {
     origin: 'http://localhost:3000',
     public: {
-      name: 'Papaplatte Games',
+      name: 'Henrys Games',
       description:
-        'Hier findest du alle Spiele die Papaplatte noch spielen will.',
+        'Hier findest du alle Spiele die Henry noch spielen will.',
       favicon: '/papaplatte.ico',
       showThanks: 'true',
     },
     oauth: {
       twitch: {
-        clientId: undefined,
-        clientSecret: undefined,
+        clientId: process.env.NUXT_OAUTH_TWITCH_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_TWITCH_CLIENT_SECRET,
       },
     },
     igdb: {
@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     },
     twitch: {
       mails: process.env.NUXT_TWITCH_MAILS,
-      userId: 50985620,
+      userId: 115008476,
     },
     db: {
       path: 'games.db',

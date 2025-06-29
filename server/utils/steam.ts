@@ -23,8 +23,25 @@ export async function getSteamData(url: string) {
 
   const comingSoon = document.querySelector('.game_area_comingsoon');
 
+  // Fallback: Versuche den Titel aus der URL zu extrahieren
+  let gameName = title?.replace(' on Steam', '').replace('Save 10% on ', '');
+  
+  if (!gameName) {
+    // Extrahiere den Namen aus der URL als Fallback
+    const urlMatch = url.match(/\/app\/\d+\/([^\/\?]+)/);
+    if (urlMatch) {
+      gameName = urlMatch[1]
+        .replace(/_/g, ' ')
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase());
+    } else {
+      // Letzter Fallback
+      gameName = 'Unknown Game';
+    }
+  }
+
   return {
-    name: title?.replace(' on Steam', '').replace('Save 10% on ', ''),
+    name: gameName,
     image,
     url: metaUrl,
     released: !comingSoon,
