@@ -1,0 +1,17 @@
+services:
+  games-app:
+    build: .
+    container_name: games-dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  node_modules:
